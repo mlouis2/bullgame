@@ -33,7 +33,7 @@ class Cell {
       case 1:
         // this.drawImage("./pic.png", this.xValue, this.yValue);
 
-        drawImage("https://images.vexels.com/media/users/3/151979/isolated/lists/505fcac276439d8c3694dfe03556ceea-stack-of-plates-icon.png", this.xValue, this.yValue);
+        // drawImage("https://images.vexels.com/media/users/3/151979/isolated/lists/505fcac276439d8c3694dfe03556ceea-stack-of-plates-icon.png", this.xValue, this.yValue);
         break;
       default:
         break;
@@ -42,16 +42,36 @@ class Cell {
 
   drawWalls() {
     if (this.topWall) {
-      drawLine(this.xValue, this.yValue, this.xValue + this.cellSize, this.yValue);
+      drawLine(
+        this.xValue,
+        this.yValue,
+        this.xValue + this.cellSize,
+        this.yValue
+      );
     }
     if (this.leftWall) {
-      drawLine(this.xValue, this.yValue, this.xValue, this.yValue + this.cellSize);
+      drawLine(
+        this.xValue,
+        this.yValue,
+        this.xValue,
+        this.yValue + this.cellSize
+      );
     }
     if (this.rightWall) {
-      drawLine(this.xValue + this.cellSize, this.yValue, this.xValue + this.cellSize, this.yValue + this.cellSize);
+      drawLine(
+        this.xValue + this.cellSize,
+        this.yValue,
+        this.xValue + this.cellSize,
+        this.yValue + this.cellSize
+      );
     }
     if (this.bottomWall) {
-      drawLine(this.xValue, this.yValue + this.cellSize, this.xValue + this.cellSize, this.yValue + this.cellSize);
+      drawLine(
+        this.xValue,
+        this.yValue + this.cellSize,
+        this.xValue + this.cellSize,
+        this.yValue + this.cellSize
+      );
     }
   }
 }

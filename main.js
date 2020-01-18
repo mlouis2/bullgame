@@ -59,6 +59,6 @@ function drawImage(source, xValue, yValue) {
   let drawing = new Image();
   drawing.src = source;
   drawing.onload = function() {
-    ctx.drawImage(drawing, xValue, yValue);
+    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
   };
 }

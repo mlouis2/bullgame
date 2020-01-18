@@ -8,13 +8,7 @@ class Player {
 
   draw() {
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    drawImage(
-      "./images/bull.png",
-      this.xValue,
-      this.yValue,
-      cellSize,
-      cellSize
-    );
+    drawImage("./images/bull.png", this.xValue, this.yValue);
   }
 
   move() {
