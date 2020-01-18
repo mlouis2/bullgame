@@ -17,14 +17,13 @@ const directions = {
 };
 
 function calculateXAndYPos(xCoord, yCoord) {
-  const cellSize = canvas.width / NUM_COLS;
   return [xCoord * cellSize, yCoord * cellSize];
 }
 
 class Game {
   constructor() {
     this.setBackground();
-    this.grid = new Grid(NUM_ROWS, NUM_COLS);
+    this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn;
     this.update();

@@ -1,8 +1,9 @@
 class Grid {
-  constructor(numRows, numCols) {
+  constructor(numRows, numCols, cellSize) {
     this.numRows = numRows;
     this.numCols = numCols;
     this.cells = [];
+    this.cellSize = cellSize;
     this.generateCells();
   }
 
@@ -14,14 +15,14 @@ class Grid {
           colNum,
           rowNum,
           [true, true, true, true],
-          0
+          0,
+          this.cellSize
         );
       }
     }
   }
 
   draw() {
-    console.log("drawing grid");
     for (let rowNum = 0; rowNum < this.numRows; rowNum++) {
       for (let colNum = 0; colNum < this.numCols; colNum++) {
         this.cells[rowNum][colNum].draw();
