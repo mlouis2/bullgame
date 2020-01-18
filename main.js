@@ -18,9 +18,6 @@ const directions = {
 
 function calculateXAndYPos(xCoord, yCoord) {
   const cellSize = canvas.width / NUM_COLS;
-  console.log("x coord is " + xCoord);
-  console.log("cell size is " + cellSize);
-  console.log([xCoord * cellSize, yCoord * cellSize]);
   return [xCoord * cellSize, yCoord * cellSize];
 }
 
