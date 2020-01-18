@@ -24,6 +24,23 @@ class Cell {
     ctx.fillRect(this.xValue, this.yValue, this.cellSize, this.cellSize);
     ctx.strokeStyle = "#6a0dad";
     ctx.lineWidth = 5;
+    this.drawWalls();
+    this.drawChina();
+  }
+
+  drawChina() {
+    switch (this.chinaId) {
+      case 1:
+        // this.drawImage("./pic.png", this.xValue, this.yValue);
+
+        drawImage("https://images.vexels.com/media/users/3/151979/isolated/lists/505fcac276439d8c3694dfe03556ceea-stack-of-plates-icon.png", this.xValue, this.yValue);
+        break;
+      default:
+        break;
+    }
+  }
+
+  drawWalls() {
     if (this.topWall) {
       drawLine(this.xValue, this.yValue, this.xValue + this.cellSize, this.yValue);
     }
