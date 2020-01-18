@@ -12,12 +12,10 @@ class Cell {
     this.leftWall = walls[3];
     this.chinaId = chinaId;
     [this.xValue, this.yValue] = calculateXAndYPos(xCoord, yCoord);
-    this.draw();
   }
 
   removeChina() {
     this.chinaId = chinaIds.noChina;
-    this.draw();
   }
 
   draw() {
