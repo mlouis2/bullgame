@@ -8,14 +8,13 @@ class Player {
 
   draw() {
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    let sprite = new Image();
-    sprite.src = "./images/bull.png";
-    this.sprite.onload = this.drawImage(this.sprite, this.xValue, this.yValue);
-  }
-
-  drawImage(sprite, xValue, yValue) {
-    console.log(sprite);
-    ctx.drawImage(sprite, xValue, yValue);
+    drawImage(
+      "./images/bull.png",
+      this.xValue,
+      this.yValue,
+      cellSize,
+      cellSize
+    );
   }
 
   move() {
@@ -42,6 +41,5 @@ class Player {
     if (e.keyCode in directions) {
       this.direction = directions[e.keyCode];
     }
-    console.log("new direction is " + this.direction);
   }
 }
