@@ -1,18 +1,21 @@
 class Player {
   constructor(xCoord, yCoord, startDirection) {
-    console.log("start directoin is " + startDirection);
     this.direction = startDirection;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    this.draw();
   }
 
   draw() {
-    console.log("this x coord is " + this.xCoord);
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    ctx.fillStyle = "#6a0dad";
-    ctx.fillRect(this.xValue, this.yValue, 10, 10);
+    let sprite = new Image();
+    sprite.src = "./images/bull.png";
+    this.sprite.onload = this.drawImage(this.sprite, this.xValue, this.yValue);
+  }
+
+  drawImage(sprite, xValue, yValue) {
+    console.log(sprite);
+    ctx.drawImage(sprite, xValue, yValue);
   }
 
   move() {
@@ -24,7 +27,6 @@ class Player {
         this.yCoord = this.yCoord + 1;
         break;
       case directions.RIGHT:
-        console.log("incrementing this.xcoord");
         this.xCoord = this.xCoord + 1;
         break;
       case directions.LEFT:
