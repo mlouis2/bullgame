@@ -10,7 +10,7 @@ class Player {
     this.startXCoord = startXCoord;
     this.startYCoord = startYCoord;
     this.direction = startDirection;
-    const [this.xValue, this.yValue] = calculateXAndYPos(xCoord, yCoord);
+    [this.xValue, this.yValue] = calculateXAndYPos(xCoord, yCoord);
   }
 
   draw() {}

@@ -3,27 +3,16 @@ const chinaIds = {
   classic: 1
 };
 
-//TODO: Move this to game.js and have it calculate the top left x and y pixel values
-//based off of size of canvas.
-calculateXAndYPos(xCoord, yCoord) {}
-
 class Cell {
   //Wall values is a boolean, china id is a string
-  constructor(
-    xCoord,
-    yCoord,
-    topWall,
-    rightWall,
-    bottomWall,
-    leftWall,
-    chinaId
-  ) {
-    this.topWall = topWall;
-    this.rightWall = rightWall;
-    this.bottomWall = bottomWall;
-    this.leftWall = leftWall;
+  constructor(xCoord, yCoord, walls, chinaId) {
+    this.topWall = walls[0];
+    this.rightWall = walls[1];
+    this.bottomWall = walls[2];
+    this.leftWall = walls[3];
     this.chinaId = chinaId;
-    const [this.xValue, this.yValue] = calculateXAndYPos(xCoord, yCoord);
+    [this.xValue, this.yValue] = calculateXAndYPos(xCoord, yCoord);
+    this.draw();
   }
 
   removeChina() {
@@ -31,5 +20,8 @@ class Cell {
     this.draw();
   }
 
-  draw() {}
+  draw() {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(this.xValue, this.yValue, 10, 10);
+  }
 }
