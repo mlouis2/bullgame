@@ -15,7 +15,7 @@ class Grid {
           colNum,
           rowNum,
           [true, true, true, true],
-          0,
+          1,
           this.cellSize
         );
       }

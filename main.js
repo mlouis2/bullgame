@@ -54,3 +54,11 @@ class Game {
 }
 
 const game = new Game();
+
+function drawImage(source, xValue, yValue) {
+  let drawing = new Image();
+  drawing.src = source;
+  drawing.onload = function() {
+    ctx.drawImage(drawing, xValue, yValue);
+  };
+}
