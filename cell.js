@@ -31,7 +31,7 @@ class Cell {
   drawChina() {
     switch (this.chinaId) {
       case 1:
-        drawImage("./images/plate.png", this.xValue, this.yValue);
+        drawImage("./images/plate.png", this.xValue, this.yValue, 0);
         break;
       default:
         break;

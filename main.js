@@ -14,11 +14,16 @@ function calculateXAndYPos(xCoord, yCoord) {
   return [xCoord * CELL_SIZE, yCoord * CELL_SIZE];
 }
 
-function drawImage(source, xValue, yValue) {
+function drawImage(source, xValue, yValue, rotationDegree) {
   let drawing = new Image();
   drawing.src = source;
   drawing.onload = function() {
+    ctx.save();
+    ctx.translate(xValue + (CELL_SIZE / 2), yValue + (CELL_SIZE / 2));
+    ctx.rotate(rotationDegree);
+    ctx.translate(-(xValue + (CELL_SIZE / 2)), -(yValue + (CELL_SIZE / 2)));
     ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
+    ctx.restore();
   };
 }
 

@@ -1,3 +1,5 @@
+const BULL_SPRINT = "./images/bull.png";
+
 class Player {
   constructor(xCoord, yCoord, startDirection) {
     this.direction = startDirection;
@@ -8,7 +10,20 @@ class Player {
 
   draw() {
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    drawImage("./images/bull.png", this.xValue, this.yValue);
+    switch (this.direction) {
+      case directions.UP:
+        drawImage(BULL_SPRINT, this.xValue, this.yValue, 0);
+        break;
+      case directions.DOWN:
+        drawImage(BULL_SPRINT, this.xValue, this.yValue, Math.PI);
+        break;
+      case directions.RIGHT:
+        drawImage(BULL_SPRINT, this.xValue, this.yValue, Math.PI / 2);
+        break;
+      case directions.LEFT:
+        drawImage(BULL_SPRINT, this.xValue, this.yValue, -Math.PI / 2);
+        break;
+    }
   }
 
   move() {
