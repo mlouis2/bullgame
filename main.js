@@ -48,6 +48,7 @@ class Game {
     this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE, this.doorLocation);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
+    this.grid.draw();
     this.update();
   }
 
@@ -67,9 +68,8 @@ class Game {
 
   async update() {
     if (!this.gameOver) {
-      setBackground();
-      this.grid.draw();
       const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
+      currentCell.draw();
       if (!currentCell.checkIfWallInDirection(this.player.direction)) {
         this.player.move();
       }
