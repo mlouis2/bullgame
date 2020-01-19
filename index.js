@@ -21,7 +21,7 @@ function setBackground() {
   }
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  scoreText.style.marginLeft = canvas.offsetLeft;
+  score.style.marginLeft = canvas.offsetLeft;
 }
 
 setBackground();
