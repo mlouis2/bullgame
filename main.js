@@ -77,7 +77,7 @@ class Game {
       this.player.draw();
       setTimeout(() => {
         this.update();
-      }, 1000);
+      }, 250);
       scoreText.innerHTML = this.score;
     }
   }
