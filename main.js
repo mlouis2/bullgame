@@ -1,12 +1,13 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+let score = document.getElementById("scoreText");
 
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
 let cellSize;
 
 const ASPECT_RATIO = [16, 9];
-const X_PERCENTAGE_OF_WINDOW = 0.8;
+const X_PERCENTAGE_OF_WINDOW = 0.7;
 const Y_PERCENTAGE_OF_WINDOW = 0.9;
 
 const directions = {
@@ -20,30 +21,19 @@ function calculateXAndYPos(xCoord, yCoord) {
   return [xCoord * cellSize, yCoord * cellSize];
 }
 
-function drawImage(source, xValue, yValue) {
-  let drawing = new Image();
-  drawing.src = source;
-  drawing.onload = function() {
-    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
-  };
-}
-
 class Game {
   constructor() {
     this.setBackground();
     this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize);
     this.player = new Player(0, 0, directions.RIGHT);
-    document.onkeydown = this.player.turn.bind(this.player);
+    document.onkeydown = this.player.turn;
+    this.update();
   }
 
-  async update() {
+  update() {
     this.setBackground();
     this.grid.draw();
-    this.player.move();
     this.player.draw();
-    setTimeout(() => {
-      this.update();
-    }, 1000);
   }
 
   setBackground() {
@@ -61,8 +51,24 @@ class Game {
     }
     cellSize = canvas.width / NUM_COLS;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    score.style.marginLeft = canvas.offsetLeft;
   }
 }
 
 const game = new Game();
-game.update();
+
+function drawImage(source, xValue, yValue) {
+  let drawing = new Image();
+  drawing.src = source;
+  drawing.onload = function() {
+    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
+  };
+}
+
+function drawLine(startXPos, startYPos, endXPos, endYPos) {
+  ctx.beginPath();
+  ctx.moveTo(startXPos, startYPos);
+  ctx.lineTo(endXPos, endYPos);
+  ctx.stroke();
+}
