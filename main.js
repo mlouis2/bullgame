@@ -1,3 +1,6 @@
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
 
@@ -10,11 +13,28 @@ const directions = {
   RIGHT: 39
 };
 
-const CELL_SIZE = canvas.width / NUM_COLS;
-const HALF_OF_CELL_SIZE = CELL_SIZE / 2;
+let cellSize, halfOfCellSize;
+
+function setBackground() {
+  const defaultCanvasWidth = window.innerWidth * X_PERCENTAGE_OF_WINDOW;
+  canvas.width = defaultCanvasWidth;
+  const adjustedCanvasHeight =
+    (defaultCanvasWidth / ASPECT_RATIO[0]) * ASPECT_RATIO[1]; // 16:9 aspect ratio
+  if (window.innerHeight < adjustedCanvasHeight) {
+    const defaultCanvasHeight = window.innerHeight * Y_PERCENTAGE_OF_WINDOW;
+    canvas.height = defaultCanvasHeight;
+    canvas.width = (defaultCanvasHeight * ASPECT_RATIO[0]) / ASPECT_RATIO[1];
+  } else {
+    canvas.height = adjustedCanvasHeight;
+  }
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  cellSize = canvas.width / NUM_COLS;
+  halfOfCellSize = cellSize / 2;
+}
 
 function calculateXAndYPos(xCoord, yCoord) {
-  return [xCoord * CELL_SIZE, yCoord * CELL_SIZE];
+  return [xCoord * cellSize, yCoord * cellSize];
 }
 
 function drawImage(source, xValue, yValue, rotationDegree) {
@@ -22,10 +42,10 @@ function drawImage(source, xValue, yValue, rotationDegree) {
   drawing.src = source;
   drawing.onload = function() {
     ctx.save();
-    ctx.translate(xValue + HALF_OF_CELL_SIZE, yValue + HALF_OF_CELL_SIZE);
+    ctx.translate(xValue + halfOfCellSize, yValue + halfOfCellSize);
     ctx.rotate(rotationDegree);
-    ctx.translate(-(xValue + HALF_OF_CELL_SIZE), -(yValue + HALF_OF_CELL_SIZE));
-    ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
+    ctx.translate(-(xValue + halfOfCellSize), -(yValue + halfOfCellSize));
+    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
     ctx.restore();
   };
 }
@@ -40,12 +60,12 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
 
 class Game {
   constructor() {
+    setBackground();
     this.gameOver = false;
     this.score = 0;
     this.doorLocation = levelOneInfo.doorLocation;
-    setBackground();
     score.style.marginLeft = canvas.offsetLeft;
-    this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE, this.doorLocation);
+    this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize, this.doorLocation);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
     this.grid.draw();
