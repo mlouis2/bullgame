@@ -20,19 +20,30 @@ function calculateXAndYPos(xCoord, yCoord) {
   return [xCoord * cellSize, yCoord * cellSize];
 }
 
+function drawImage(source, xValue, yValue) {
+  let drawing = new Image();
+  drawing.src = source;
+  drawing.onload = function() {
+    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
+  };
+}
+
 class Game {
   constructor() {
     this.setBackground();
     this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize);
     this.player = new Player(0, 0, directions.RIGHT);
-    document.onkeydown = this.player.turn;
-    this.update();
+    document.onkeydown = this.player.turn.bind(this.player);
   }
 
-  update() {
+  async update() {
     this.setBackground();
     this.grid.draw();
     this.player.draw();
+    this.player.move();
+    setTimeout(() => {
+      this.update();
+    }, 1000);
   }
 
   setBackground() {
@@ -54,11 +65,4 @@ class Game {
 }
 
 const game = new Game();
-
-function drawImage(source, xValue, yValue) {
-  let drawing = new Image();
-  drawing.src = source;
-  drawing.onload = function() {
-    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
-  };
-}
+game.update();
