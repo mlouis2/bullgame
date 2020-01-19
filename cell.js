@@ -48,9 +48,15 @@ class Cell {
   }
 
   drawChina() {
+    const randomValue = Math.floor(Math.random() * Math.floor(2));
     switch (this.chinaId) {
       case 1:
-        drawImage("./images/cup.png", this.xValue, this.yValue, 0);
+        drawImage(
+          randomValue === 0 ? "./images/cup.png" : "./images/plate.png",
+          this.xValue,
+          this.yValue,
+          0
+        );
         break;
       case 2:
         drawImage("./images/smashed.png", this.xValue, this.yValue, 0);
