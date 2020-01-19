@@ -1,6 +1,7 @@
 const chinaIds = {
   noChina: 0,
-  classic: 1
+  classic: 1,
+  classicSmashed: 2
 };
 
 const WALL_OFFSET = 1;
@@ -19,7 +20,7 @@ class Cell {
   }
 
   removeChina() {
-    this.chinaId = chinaIds.noChina;
+    this.chinaId = chinaIds.classicSmashed;
   }
 
   getChina() {
@@ -50,6 +51,9 @@ class Cell {
     switch (this.chinaId) {
       case 1:
         drawImage("./images/cup.png", this.xValue, this.yValue, 0);
+        break;
+      case 2:
+        drawImage("./images/smashed.png", this.xValue, this.yValue, 0);
         break;
       default:
         break;
