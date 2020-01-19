@@ -34,6 +34,7 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
   ctx.beginPath();
   ctx.moveTo(startXPos, startYPos);
   ctx.lineTo(endXPos, endYPos);
+  ctx.lineWidth = 2;
   ctx.stroke();
 }
 
@@ -61,7 +62,6 @@ class Game {
     this.grid.draw();
     const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
     if (!currentCell.checkIfWallInDirection(this.player.direction)) {
-      console.log("move");
       this.player.move();
     }
     this.process();
