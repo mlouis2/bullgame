@@ -27,31 +27,59 @@ class Enemy {
     }
   }
 
-  findBestDirectionToGoalWithManhattan(goalCoord) {
-    let distancesFromNextMove = {
-      "UP": Number.POSITIVE_INFINITY,
-      "RIGHT": Number.POSITIVE_INFINITY,
-      "DOWN": Number.POSITIVE_INFINITY,
-      "LEFT": Number.POSITIVE_INFINITY
-    };
-    if (this.yCoord > 0) {
-      distancesFromNextMove["UP"] = calculateManhattanDistance([this.xCoord, this.yCoord - 1], goalCoord);
-    }
-    if (this.xCoord < NUM_COLS - 1) {
-      distancesFromNextMove["RIGHT"] = calculateManhattanDistance([this.xCoord + 1, this.yCoord], goalCoord);
-    }
-    if (this.yCoord < NUM_ROWS - 1) {
-      distancesFromNextMove["DOWN"] = calculateManhattanDistance([this.xCoord, this.yCoord + 1], goalCoord);
-    }
-    if (this.xCoord > 0) {
-      distancesFromNextMove["LEFT"] = calculateManhattanDistance([this.xCoord - 1, this.yCoord], goalCoord);
-    }
-    return Object.keys(distancesFromNextMove).reduce((key, v) => distancesFromNextMove[v] < distancesFromNextMove[key] ? v : key);
+  getRandomDirection(possibleDirections) {
+    let randomDirection = Math.floor(
+      Math.random() * Object.keys(possibleDirections).length
+    );
+    return possibleDirections[Object.keys(possibleDirections)[randomDirection]];
   }
 
-  getRandomDirection(possibleDirections) {
-    let randomDirection = Math.floor(Math.random() * Object.keys(possibleDirections).length);
-    return possibleDirections[Object.keys(possibleDirections)[randomDirection]];
+  getTranslation(move) {
+    switch (move) {
+      case directions.UP:
+        return [this.xCoord, this.yCoord - 1];
+        break;
+      case directions.DOWN:
+        return [this.xCoord, this.yCoord + 1];
+        break;
+      case directions.LEFT:
+        return [this.xCoord - 1, this.yCoord];
+        break;
+      case directions.RIGHT:
+        return [this.xCoord + 1, this.yCoord];
+        break;
+    }
+  }
+
+  getBestMoveWithManhattan(availableMoves, playerLocation) {
+    const playerRow = playerLocation[0];
+    const playerCol = playerLocation[1];
+    let bestCombo = ["", 1000];
+    availableMoves.forEach(move => {
+      const [y2, x2] = this.getTranslation(move);
+      const manhattan = this.calculateManhattan(playerRow, playerCol, x2, y2);
+      if (manhattan < bestCombo[1]) {
+        bestCombo = [move, manhattan];
+      }
+    });
+    return bestCombo[0];
+  }
+
+  calculateManhattan(x, y, x2, y2) {
+    return Math.abs(x - x2) + Math.abs(y - y2);
+  }
+
+  teleport(numRows, numCols, playerLocation) {
+    let position = [0, 0];
+    do {
+      position[0] = Math.floor(Math.random() * numRows);
+      position[1] = Math.floor(Math.random() * numCols);
+    } while (
+      position[0] === playerLocation[0] &&
+      position[1] === playerLocation[1]
+    );
+    this.xCoord = position[1];
+    this.yCoord = position[0];
   }
 
   move() {
