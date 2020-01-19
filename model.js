@@ -1,4 +1,4 @@
-function drawModel(gameStatus) {
+function drawModel(gameStatus, score) {
   const modelWidth = canvas.width * 0.64;
   const modelHeight = canvas.height * 0.32;
   ctx.fillStyle = "#ffffff";
@@ -15,8 +15,11 @@ function drawModel(gameStatus) {
   endGameText.onload = function() {
     ctx.drawImage(endGameText, canvas.width * 0.1, 50, modelWidth * 0.95, 100);
   };
+  storeHighScore(score);
   document.onkeydown = refresh;
 }
+
+function storeHighScore() {}
 
 function refresh(e) {
   location.href = "./index.html";

@@ -114,7 +114,7 @@ class Game {
       }, 250);
       scoreText.innerHTML = this.score;
     } else {
-      drawModel(this.gameOver);
+      drawModel(this.gameOver, this.score);
     }
   }
 }
