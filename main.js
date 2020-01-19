@@ -4,6 +4,8 @@ const ctx = canvas.getContext("2d");
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
 
+let totalScore = 0;
+
 const scoreText = document.getElementById("score");
 const score = document.getElementById("scoreText");
 
@@ -69,6 +71,7 @@ function getRandomLocationWithinCanvas() {
 
 class GameControl {
   constructor() {
+    totalScore = 0;
     playAndLoopMusic(1.62);
     this.level = 1;
     this.game = new Game(
@@ -76,21 +79,23 @@ class GameControl {
       this.level,
       getDoorLocationAtLevel(this.level),
       getPlayerStartLocationAtLevel(this.level),
-      getPlayerStartDirectionAtLevel(this.level)
+      getPlayerStartDirectionAtLevel(this.level),
+      0
     );
   }
-  gameOverCallback(gameOverStatus) {
+  gameOverCallback(gameOverStatus, score) {
     //Means that player won
     if (gameOverStatus === 1) {
       if (this.level !== NUM_LEVELS) {
         this.level++;
-        console.log("creating a new game");
+        totalScore += score;
         this.game = new Game(
           this.gameOverCallback,
           this.level,
           getDoorLocationAtLevel(this.level),
           getPlayerStartLocationAtLevel(this.level),
-          getPlayerStartDirectionAtLevel(this.level)
+          getPlayerStartDirectionAtLevel(this.level),
+          totalScore
         );
       } else {
         drawModel(this.gameOver, this.score);
@@ -107,19 +112,20 @@ class Game {
     level,
     doorLocation,
     playerStartLocation,
-    playerStartDirection
+    playerStartDirection,
+    initialScore
   ) {
-    console.log("game being constructed with level " + level);
+    console.log("initial score is " + initialScore);
     setBackground();
     this.level = level;
     this.gameOverCallback = gameOverCallback;
     // 0 is game not over, 1 is game won, 2 is game lost
     this.gameOver = 0;
-    this.score = 0;
+    this.score = initialScore;
+    this.levelScore = initialScore;
     this.numTicks = 0;
     this.doorLocation = doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
-    console.error("door location is " + this.doorLocation);
     this.grid = new Grid(
       NUM_ROWS,
       NUM_COLS,
@@ -144,6 +150,7 @@ class Game {
     if (cell.chinaId === 1) {
       cell.removeChina();
       this.score++;
+      this.levelScore++;
     }
     const doorFound =
       this.player.getPlayerLocation()[0] === this.doorLocation[0] &&
@@ -214,7 +221,7 @@ class Game {
       scoreText.innerHTML = this.score;
       this.numTicks++;
     } else {
-      this.gameOverCallback(this.gameOver);
+      this.gameOverCallback(this.gameOver, this.levelScore);
     }
   }
 }
