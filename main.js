@@ -125,7 +125,13 @@ class Game {
     this.doorLocation = doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
     console.error("door location is " + this.doorLocation);
-    this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize, this.doorLocation);
+    this.grid = new Grid(
+      NUM_ROWS,
+      NUM_COLS,
+      cellSize,
+      this.doorLocation,
+      this.level
+    );
     this.player = new Player(
       playerStartLocation[0],
       playerStartLocation[1],

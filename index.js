@@ -27,7 +27,10 @@ function drawTitleCard() {
 }
 
 function loadGame() {
-  location.href = "./game.html";
+  document.getElementById("titleCard").src = "./images/boss_man.gif";
+  setTimeout(() => {
+    location.href = "./game.html";
+  }, 1620);
 }
 
 loadLevels();

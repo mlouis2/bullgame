@@ -8,11 +8,12 @@ function getWallBooleanArray(str) {
 }
 
 class Grid {
-  constructor(numRows, numCols, cellSize, doorLocation) {
+  constructor(numRows, numCols, cellSize, doorLocation, level) {
     this.numRows = numRows;
     this.numCols = numCols;
     this.cells = [];
     this.cellSize = cellSize;
+    this.levelInfo = levelInfo[level - 1];
     this.generateCells(doorLocation);
   }
 
@@ -23,8 +24,8 @@ class Grid {
         this.cells[rowNum][colNum] = new Cell(
           colNum,
           rowNum,
-          getWallBooleanArray(levelOneInfo.columns[colNum][rowNum][0]),
-          levelOneInfo.columns[colNum][rowNum][1],
+          getWallBooleanArray(this.levelInfo.columns[colNum][rowNum][0]),
+          this.levelInfo.columns[colNum][rowNum][1],
           this.cellSize
         );
         if (rowNum === doorLocation[0] && colNum === doorLocation[1]) {
