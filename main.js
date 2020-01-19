@@ -63,26 +63,6 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-function calculateManhattanDistance(locationCoord, goalCoord) {
-  return (
-    Math.abs(locationCoord[0] - goalCoord[0]) +
-    Math.abs(locationCoord[1] - goalCoord[1])
-  );
-}
-
-function getNewCoordinates(xCoord, yCoord, direction) {
-  switch (direction) {
-    case directions.UP:
-      return [xCoord, yCoord - 1];
-    case directions.RIGHT:
-      return [xCoord + 1, yCoord];
-    case directions.DOWN:
-      return [xCoord, yCoord + 1];
-    case directions.LEFT:
-      return [xCoord - 1, yCoord];
-  }
-}
-
 function getRandomLocationWithinCanvas() {
   return [getRandomInt(NUM_COLS), getRandomInt(NUM_ROWS)];
 }
