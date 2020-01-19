@@ -39,7 +39,9 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
 
 class Game {
   constructor() {
+    this.gameOver = false;
     this.score = 0;
+    this.doorLocation = levelOneInfo.doorLocation;
     setBackground();
     score.style.marginLeft = canvas.offsetLeft;
     this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
@@ -54,22 +56,32 @@ class Game {
       cell.removeChina();
       this.score++;
     }
+    console.log(this.player.getPlayerLocation());
+    console.log(this.doorLocation);
+    if (
+      this.player.getPlayerLocation()[0] === this.doorLocation[0] &&
+      this.player.getPlayerLocation()[1] === this.doorLocation[1]
+    ) {
+      this.gameOver = true;
+    }
   }
 
   async update() {
-    setBackground();
-    this.grid.draw();
-    const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
-    if (!currentCell.checkIfWallInDirection(this.player.direction)) {
-      console.log("move");
-      this.player.move();
+    if (!this.gameOver) {
+      setBackground();
+      this.grid.draw();
+      const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
+      if (!currentCell.checkIfWallInDirection(this.player.direction)) {
+        console.log("move");
+        this.player.move();
+      }
+      this.process();
+      this.player.draw();
+      setTimeout(() => {
+        this.update();
+      }, 1000);
+      scoreText.innerHTML = this.score;
     }
-    this.process();
-    this.player.draw();
-    setTimeout(() => {
-      this.update();
-    }, 1000);
-    scoreText.innerHTML = this.score;
   }
 }
 
