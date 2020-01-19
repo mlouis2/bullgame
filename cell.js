@@ -6,7 +6,6 @@ const chinaIds = {
 const WALL_OFFSET = 1;
 
 class Cell {
-  //Wall values is a boolean, china id is a string
   constructor(xCoord, yCoord, walls, chinaId, cellSize) {
     this.xCoord = xCoord;
     this.yCoord = yCoord;
