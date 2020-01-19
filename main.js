@@ -29,14 +29,6 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
   ctx.stroke();
 }
 
-function drawImage(source, xValue, yValue) {
-  let drawing = new Image();
-  drawing.src = source;
-  drawing.onload = function() {
-    ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
-  };
-}
-
 class Game {
   constructor() {
     setBackground();
