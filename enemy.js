@@ -75,8 +75,7 @@ class Enemy {
       position[0] = Math.floor(Math.random() * numRows);
       position[1] = Math.floor(Math.random() * numCols);
     } while (
-      position[0] === playerLocation[0] &&
-      position[1] === playerLocation[1]
+      this.calculateManhattan(position[0], position[1], playerLocation[0], playerLocation[1]) < 3
     );
     this.xCoord = position[1];
     this.yCoord = position[0];
