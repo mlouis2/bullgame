@@ -22,12 +22,28 @@ function drawImage(source, xValue, yValue) {
   };
 }
 
+function drawLine(startXPos, startYPos, endXPos, endYPos) {
+  ctx.beginPath();
+  ctx.moveTo(startXPos, startYPos);
+  ctx.lineTo(endXPos, endYPos);
+  ctx.stroke();
+}
+
+function drawImage(source, xValue, yValue) {
+  let drawing = new Image();
+  drawing.src = source;
+  drawing.onload = function() {
+    ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
+  };
+}
+
 class Game {
   constructor() {
     setBackground();
     this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
+    this.update();
   }
 
   async update() {
@@ -42,4 +58,3 @@ class Game {
 }
 
 const game = new Game();
-game.update();

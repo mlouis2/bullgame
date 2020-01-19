@@ -73,10 +73,3 @@ class Cell {
     }
   }
 }
-
-function drawLine(startXPos, startYPos, endXPos, endYPos) {
-  ctx.beginPath();
-  ctx.moveTo(startXPos, startYPos);
-  ctx.lineTo(endXPos, endYPos);
-  ctx.stroke();
-}
