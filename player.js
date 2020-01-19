@@ -52,6 +52,6 @@ class Player {
   }
 
   getPlayerLocation() {
-    return [this.xCoord, this.yCoord];
+    return [this.yCoord, this.xCoord];
   }
 }
