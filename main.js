@@ -1,6 +1,8 @@
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
 
+let scoreText = document.getElementById("score");
+
 const directions = {
   UP: 38,
   DOWN: 40,
@@ -37,12 +39,21 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
 
 class Game {
   constructor() {
+    this.score = 0;
     setBackground();
     score.style.marginLeft = canvas.offsetLeft;
     this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
     this.update();
+  }
+
+  process() {
+    const cell = this.grid.getCellAt(this.player.getPlayerLocation());
+    if (cell.chinaId === 1) {
+      cell.removeChina();
+      this.score++;
+    }
   }
 
   async update() {
@@ -53,10 +64,12 @@ class Game {
       console.log("move");
       this.player.move();
     }
+    this.process();
     this.player.draw();
     setTimeout(() => {
       this.update();
     }, 1000);
+    scoreText.innerHTML = this.score;
   }
 }
 

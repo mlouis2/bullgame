@@ -1,6 +1,6 @@
 body {
-  background-color: #FFE5B4;
-  font-family: 'Press Start 2P', cursive;
+  background-color: #ffe5b4;
+  font-family: "Press Start 2P", cursive;
 }
 
 canvas {
@@ -9,4 +9,8 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.scoreContainer {
+  display: inline-flex;
 }

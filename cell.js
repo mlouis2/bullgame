@@ -19,6 +19,10 @@ class Cell {
     this.chinaId = chinaIds.noChina;
   }
 
+  getChina() {
+    return this.chinaId;
+  }
+
   draw() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(
