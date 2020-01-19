@@ -1,10 +1,11 @@
 let levelInfo = [];
 
-const NUM_LEVELS = 2;
+const NUM_LEVELS = 3;
 
 function loadLevels() {
   loadLevelOne();
   loadLevelTwo();
+  loadLevelThree();
 }
 
 function loadLevelOne() {
@@ -21,6 +22,14 @@ function loadLevelTwo() {
   request.send(null);
   levelTwoInfo = JSON.parse(request.responseText);
   levelInfo.push(levelTwoInfo);
+}
+
+function loadLevelThree() {
+  let request = new XMLHttpRequest();
+  request.open("GET", "./gameFiles/levelThreeCols.json", false);
+  request.send(null);
+  levelThreeInfo = JSON.parse(request.responseText);
+  levelInfo.push(levelThreeInfo);
 }
 
 function getDoorLocationAtLevel(level) {

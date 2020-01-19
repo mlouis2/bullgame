@@ -96,6 +96,10 @@ class GameControl {
           totalScore = totalScore + 10;
           bonusScoreText.innerHTML = "+10 bonus for all-smash!";
         }
+        if (this.level === 3 && this.chinaSmashed === 152) {
+          totalScore = totalScore + 10;
+          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
+        }
         this.level++;
         this.game = new Game(
           this.gameOverCallback,
