@@ -4,7 +4,8 @@ const ctx = canvas.getContext("2d");
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
 
-let scoreText = document.getElementById("score");
+const scoreText = document.getElementById("score");
+const score = document.getElementById("scoreText");
 
 const directions = {
   UP: 38,
@@ -186,7 +187,7 @@ class Game {
       }, 250);
       scoreText.innerHTML = this.score;
     } else {
-      drawModel(this.gameOver);
+      drawModel(this.gameOver, this.score);
     }
   }
 }
