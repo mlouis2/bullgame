@@ -1,13 +1,5 @@
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
-
 const NUM_ROWS = 9;
 const NUM_COLS = 16;
-let cellSize;
-
-const ASPECT_RATIO = [16, 9];
-const X_PERCENTAGE_OF_WINDOW = 0.8;
-const Y_PERCENTAGE_OF_WINDOW = 0.9;
 
 const directions = {
   UP: 38,
@@ -16,51 +8,36 @@ const directions = {
   RIGHT: 39
 };
 
+const CELL_SIZE = canvas.width / NUM_COLS;
+
 function calculateXAndYPos(xCoord, yCoord) {
-  return [xCoord * cellSize, yCoord * cellSize];
+  return [xCoord * CELL_SIZE, yCoord * CELL_SIZE];
 }
 
 function drawImage(source, xValue, yValue) {
   let drawing = new Image();
   drawing.src = source;
   drawing.onload = function() {
-    ctx.drawImage(drawing, xValue, yValue, cellSize, cellSize);
+    ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
   };
 }
 
 class Game {
   constructor() {
-    this.setBackground();
-    this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize);
+    setBackground();
+    this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
   }
 
   async update() {
-    this.setBackground();
+    setBackground();
     this.grid.draw();
     this.player.move();
     this.player.draw();
     setTimeout(() => {
       this.update();
     }, 1000);
-  }
-
-  setBackground() {
-    ctx.fillStyle = "#123456";
-    const defaultCanvasWidth = window.innerWidth * X_PERCENTAGE_OF_WINDOW;
-    canvas.width = defaultCanvasWidth;
-    const adjustedCanvasHeight =
-      (defaultCanvasWidth / ASPECT_RATIO[0]) * ASPECT_RATIO[1]; // 16:9 aspect ratio
-    if (window.innerHeight < adjustedCanvasHeight) {
-      const defaultCanvasHeight = window.innerHeight * Y_PERCENTAGE_OF_WINDOW;
-      canvas.height = defaultCanvasHeight;
-      canvas.width = (defaultCanvasHeight * ASPECT_RATIO[0]) / ASPECT_RATIO[1];
-    } else {
-      canvas.height = adjustedCanvasHeight;
-    }
-    cellSize = canvas.width / NUM_COLS;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 }
 
