@@ -169,7 +169,6 @@ class Game {
       if (!currentPlayerCell.checkIfWallInDirection(this.player.direction)) {
         this.player.move();
       }
-      this.process();
       const availableMoves = this.getAvailableMoves();
       const bestMove = this.enemy.getBestMoveWithManhattan(
         availableMoves,
@@ -187,6 +186,7 @@ class Game {
       }
       this.enemy.draw();
       this.player.draw();
+      this.process();
       setTimeout(() => {
         this.update();
       }, 250);
