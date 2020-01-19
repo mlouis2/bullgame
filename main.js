@@ -58,11 +58,18 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
   ctx.stroke();
 }
 
+class GameControl {
+  constructor() {
+    this.game = new Game();
+  }
+}
+
 class Game {
   constructor() {
     this.playAndLoopMusic();
     setBackground();
-    this.gameOver = false;
+    //0 is game not over, 1 is game won, 2 is game lost
+    this.gameOver = 0;
     this.score = 0;
     this.doorLocation = levelOneInfo.doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
@@ -89,12 +96,12 @@ class Game {
       this.player.getPlayerLocation()[0] === this.doorLocation[0] &&
       this.player.getPlayerLocation()[1] === this.doorLocation[1]
     ) {
-      this.gameOver = true;
+      this.gameOver = 1;
     }
   }
 
   async update() {
-    if (!this.gameOver) {
+    if (this.gameOver === 0) {
       const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
       currentCell.draw();
       if (!currentCell.checkIfWallInDirection(this.player.direction)) {
@@ -106,8 +113,10 @@ class Game {
         this.update();
       }, 250);
       scoreText.innerHTML = this.score;
+    } else {
+      drawModel(this.gameOver);
     }
   }
 }
 
-const game = new Game();
+const gameControl = new GameControl();
