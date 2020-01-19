@@ -69,7 +69,7 @@ function getRandomLocationWithinCanvas() {
 
 class GameControl {
   constructor() {
-    this.playAndLoopMusic();
+    playAndLoopMusic(1.62);
     this.level = 1;
     this.game = new Game(
       this.gameOverCallback,
@@ -78,11 +78,6 @@ class GameControl {
       getPlayerStartLocationAtLevel(this.level),
       getPlayerStartDirectionAtLevel(this.level)
     );
-  }
-  playAndLoopMusic() {
-    const backgroundMusic = new Audio("./music/background.mp3");
-    backgroundMusic.play();
-    backgroundMusic.loop = true;
   }
   gameOverCallback(gameOverStatus) {
     //Means that player won

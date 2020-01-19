@@ -28,6 +28,7 @@ function drawTitleCard() {
 
 function loadGame() {
   document.getElementById("titleCard").src = "./images/boss_man.gif";
+  playAndLoopMusic();
   setTimeout(() => {
     location.href = "./game.html";
   }, 1620);
