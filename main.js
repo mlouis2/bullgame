@@ -80,15 +80,14 @@ class GameControl {
       getDoorLocationAtLevel(this.level),
       getPlayerStartLocationAtLevel(this.level),
       getPlayerStartDirectionAtLevel(this.level),
-      0
+      80
     );
   }
-  gameOverCallback(gameOverStatus, score) {
+  gameOverCallback(gameOverStatus) {
     //Means that player won
     if (gameOverStatus === 1) {
       if (this.level !== NUM_LEVELS) {
         this.level++;
-        totalScore += score;
         this.game = new Game(
           this.gameOverCallback,
           this.level,
@@ -98,10 +97,10 @@ class GameControl {
           totalScore
         );
       } else {
-        drawModel(this.gameOver, this.score);
+        drawModel(this.gameOver, totalScore);
       }
     } else {
-      drawModel(this.gameOver, this.score);
+      drawModel(this.gameOver, totalScore);
     }
   }
 }
@@ -112,17 +111,13 @@ class Game {
     level,
     doorLocation,
     playerStartLocation,
-    playerStartDirection,
-    initialScore
+    playerStartDirection
   ) {
-    console.log("initial score is " + initialScore);
     setBackground();
     this.level = level;
     this.gameOverCallback = gameOverCallback;
     // 0 is game not over, 1 is game won, 2 is game lost
     this.gameOver = 0;
-    this.score = initialScore;
-    this.levelScore = initialScore;
     this.numTicks = 0;
     this.doorLocation = doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
@@ -149,8 +144,7 @@ class Game {
     const cell = this.grid.getCellAt(this.player.getPlayerLocation());
     if (cell.chinaId === 1) {
       cell.removeChina();
-      this.score++;
-      this.levelScore++;
+      totalScore++;
     }
     const doorFound =
       this.player.getPlayerLocation()[0] === this.doorLocation[0] &&
@@ -218,10 +212,10 @@ class Game {
       setTimeout(() => {
         this.update();
       }, 250);
-      scoreText.innerHTML = this.score;
+      scoreText.innerHTML = totalScore;
       this.numTicks++;
     } else {
-      this.gameOverCallback(this.gameOver, this.levelScore);
+      this.gameOverCallback(this.gameOver);
     }
   }
 }
