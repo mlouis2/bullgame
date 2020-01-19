@@ -20,8 +20,7 @@ function setBackground() {
     canvas.height = adjustedCanvasHeight;
   }
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  score.style.marginLeft = canvas.offsetLeft;
 }
 
+loadLevelOne();
 setBackground();

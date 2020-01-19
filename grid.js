@@ -1,3 +1,12 @@
+function getWallBooleanArray(str) {
+  return [
+    str.includes("T"),
+    str.includes("R"),
+    str.includes("B"),
+    str.includes("L")
+  ];
+}
+
 class Grid {
   constructor(numRows, numCols, cellSize) {
     this.numRows = numRows;
@@ -14,8 +23,8 @@ class Grid {
         this.cells[rowNum][colNum] = new Cell(
           colNum,
           rowNum,
-          [true, true, true, true],
-          1,
+          getWallBooleanArray(levelOneInfo.columns[colNum][rowNum][0]),
+          levelOneInfo.columns[colNum][rowNum][1],
           this.cellSize
         );
       }

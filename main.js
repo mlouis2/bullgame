@@ -32,6 +32,7 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
 class Game {
   constructor() {
     setBackground();
+    score.style.marginLeft = canvas.offsetLeft;
     this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
@@ -43,9 +44,9 @@ class Game {
     this.grid.draw();
     this.player.move();
     this.player.draw();
-    setTimeout(() => {
-      this.update();
-    }, 1000);
+    // setTimeout(() => {
+    //   this.update();
+    // }, 1000);
   }
 }
 
