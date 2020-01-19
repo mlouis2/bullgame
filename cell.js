@@ -21,7 +21,12 @@ class Cell {
 
   draw() {
     ctx.fillStyle = "#ffffff";
-    ctx.fillRect(this.xValue, this.yValue, this.cellSize, this.cellSize);
+    ctx.fillRect(
+      this.xValue - 1,
+      this.yValue - 1,
+      this.cellSize + 1,
+      this.cellSize + 1
+    );
     ctx.strokeStyle = "#6a0dad";
     ctx.lineWidth = 5;
     this.drawWalls();
