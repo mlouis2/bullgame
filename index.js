@@ -30,7 +30,7 @@ function loadGame() {
   location.href = "./game.html";
 }
 
-loadLevelOne();
+loadLevels();
 drawTitleCard();
 
 document.onkeydown = loadGame;

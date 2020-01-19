@@ -89,33 +89,73 @@ function getRandomLocationWithinCanvas() {
 
 class GameControl {
   constructor() {
-    this.game = new Game();
+    this.playAndLoopMusic();
+    this.level = 1;
+    this.game = new Game(
+      this.gameOverCallback,
+      this.level,
+      getDoorLocationAtLevel(this.level),
+      getPlayerStartLocationAtLevel(this.level),
+      getPlayerStartDirectionAtLevel(this.level)
+    );
+  }
+  playAndLoopMusic() {
+    const backgroundMusic = new Audio("./music/background.mp3");
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
+  }
+  gameOverCallback(gameOverStatus) {
+    //Means that player won
+    if (gameOverStatus === 1) {
+      if (this.level !== NUM_LEVELS) {
+        this.level++;
+        console.log("creating a new game");
+        this.game = new Game(
+          this.gameOverCallback,
+          this.level,
+          getDoorLocationAtLevel(this.level),
+          getPlayerStartLocationAtLevel(this.level),
+          getPlayerStartDirectionAtLevel(this.level)
+        );
+      } else {
+        drawModel(this.gameOver, this.score);
+      }
+    } else {
+      drawModel(this.gameOver, this.score);
+    }
   }
 }
 
 class Game {
-  constructor() {
-    this.playAndLoopMusic();
+  constructor(
+    gameOverCallback,
+    level,
+    doorLocation,
+    playerStartLocation,
+    playerStartDirection
+  ) {
+    console.log("game being constructed with level " + level);
     setBackground();
+    this.level = level;
+    this.gameOverCallback = gameOverCallback;
     // 0 is game not over, 1 is game won, 2 is game lost
     this.gameOver = 0;
     this.score = 0;
     this.numTicks = 0;
-    this.doorLocation = levelOneInfo.doorLocation;
+    this.doorLocation = doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
+    console.error("door location is " + this.doorLocation);
     this.grid = new Grid(NUM_ROWS, NUM_COLS, cellSize, this.doorLocation);
-    this.player = new Player(0, 0, directions.RIGHT);
+    this.player = new Player(
+      playerStartLocation[0],
+      playerStartLocation[1],
+      playerStartDirection
+    );
     document.onkeydown = this.player.turn.bind(this.player);
     let randomLocation = getRandomLocationWithinCanvas();
     this.enemy = new Enemy(randomLocation[0], randomLocation[1], 1.0);
     this.grid.draw();
     this.update();
-  }
-
-  playAndLoopMusic() {
-    const backgroundMusic = new Audio("./music/background.mp3");
-    backgroundMusic.play();
-    backgroundMusic.loop = true;
   }
 
   process() {
@@ -193,7 +233,7 @@ class Game {
       scoreText.innerHTML = this.score;
       this.numTicks++;
     } else {
-      drawModel(this.gameOver, this.score);
+      this.gameOverCallback(this.gameOver);
     }
   }
 }
