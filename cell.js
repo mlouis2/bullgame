@@ -31,7 +31,7 @@ class Cell {
   drawChina() {
     switch (this.chinaId) {
       case 1:
-        drawImage("https://images.vexels.com/media/users/3/151979/isolated/lists/505fcac276439d8c3694dfe03556ceea-stack-of-plates-icon.png", this.xValue, this.yValue);
+        drawImage("./images/plate.png", this.xValue, this.yValue);
         break;
       default:
         break;
