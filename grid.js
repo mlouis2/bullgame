@@ -29,4 +29,8 @@ class Grid {
       }
     }
   }
+
+  getCellAt(location) {
+    return this.cells[location[0]][location[1]];
+  }
 }

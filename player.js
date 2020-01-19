@@ -50,4 +50,8 @@ class Player {
       this.direction = e.keyCode;
     }
   }
+
+  getPlayerLocation() {
+    return [this.xCoord, this.yCoord];
+  }
 }

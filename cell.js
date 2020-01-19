@@ -72,4 +72,21 @@ class Cell {
       );
     }
   }
+
+  checkIfWallInDirection(direction) {
+    switch (direction) {
+      case directions.UP:
+        return this.topWall;
+        break;
+      case directions.RIGHT:
+        return this.rightWall;
+        break;
+      case directions.DOWN:
+        return this.bottomWall;
+        break;
+      case directions.LEFT:
+        return this.leftWall;
+        break;
+    }
+  }
 }
