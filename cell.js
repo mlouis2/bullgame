@@ -31,7 +31,7 @@ class Cell {
   drawChina() {
     switch (this.chinaId) {
       case 1:
-        drawImage("./images/plate.png", this.xValue, this.yValue);
+        drawImage("./images/plate.png", this.xValue, this.yValue, 0);
         break;
       default:
         break;
@@ -70,6 +70,23 @@ class Cell {
         this.xValue + this.cellSize,
         this.yValue + this.cellSize
       );
+    }
+  }
+
+  checkIfWallInDirection(direction) {
+    switch (direction) {
+      case directions.UP:
+        return this.topWall;
+        break;
+      case directions.RIGHT:
+        return this.rightWall;
+        break;
+      case directions.DOWN:
+        return this.bottomWall;
+        break;
+      case directions.LEFT:
+        return this.leftWall;
+        break;
     }
   }
 }

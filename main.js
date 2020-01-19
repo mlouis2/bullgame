@@ -9,16 +9,22 @@ const directions = {
 };
 
 const CELL_SIZE = canvas.width / NUM_COLS;
+const HALF_OF_CELL_SIZE = CELL_SIZE / 2;
 
 function calculateXAndYPos(xCoord, yCoord) {
   return [xCoord * CELL_SIZE, yCoord * CELL_SIZE];
 }
 
-function drawImage(source, xValue, yValue) {
+function drawImage(source, xValue, yValue, rotationDegree) {
   let drawing = new Image();
   drawing.src = source;
   drawing.onload = function() {
+    ctx.save();
+    ctx.translate(xValue + HALF_OF_CELL_SIZE, yValue + HALF_OF_CELL_SIZE);
+    ctx.rotate(rotationDegree);
+    ctx.translate(-(xValue + HALF_OF_CELL_SIZE), -(yValue + HALF_OF_CELL_SIZE));
     ctx.drawImage(drawing, xValue, yValue, CELL_SIZE, CELL_SIZE);
+    ctx.restore();
   };
 }
 
@@ -42,7 +48,10 @@ class Game {
   async update() {
     setBackground();
     this.grid.draw();
-    this.player.move();
+    const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
+    if (!currentCell.checkIfWallInDirection(this.player.direction)) {
+      this.player.move();
+    }
     this.player.draw();
     // setTimeout(() => {
     //   this.update();
