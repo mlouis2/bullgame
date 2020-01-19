@@ -61,6 +61,7 @@ class Cell {
   }
 
   drawWalls() {
+    ctx.setLineDash([15, 3, 3, 3]);
     if (this.topWall) {
       drawLine(
         this.xValue - WALL_OFFSET,
