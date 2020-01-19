@@ -6,6 +6,8 @@ const chinaIds = {
 class Cell {
   //Wall values is a boolean, china id is a string
   constructor(xCoord, yCoord, walls, chinaId, cellSize) {
+    this.xCoord = xCoord;
+    this.yCoord = yCoord;
     this.topWall = walls[0];
     this.rightWall = walls[1];
     this.bottomWall = walls[2];
@@ -35,6 +37,13 @@ class Cell {
     ctx.lineWidth = 5;
     this.drawWalls();
     this.drawChina();
+    if (this.isDoor) {
+      this.drawDoor();
+    }
+  }
+
+  drawDoor() {
+    drawImage("./images/door.png", this.xValue, this.yValue, 0);
   }
 
   drawChina() {

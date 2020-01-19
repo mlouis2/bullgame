@@ -44,7 +44,7 @@ class Game {
     this.doorLocation = levelOneInfo.doorLocation;
     setBackground();
     score.style.marginLeft = canvas.offsetLeft;
-    this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE);
+    this.grid = new Grid(NUM_ROWS, NUM_COLS, CELL_SIZE, this.doorLocation);
     this.player = new Player(0, 0, directions.RIGHT);
     document.onkeydown = this.player.turn.bind(this.player);
     this.update();
@@ -56,8 +56,6 @@ class Game {
       cell.removeChina();
       this.score++;
     }
-    console.log(this.player.getPlayerLocation());
-    console.log(this.doorLocation);
     if (
       this.player.getPlayerLocation()[0] === this.doorLocation[0] &&
       this.player.getPlayerLocation()[1] === this.doorLocation[1]
@@ -72,7 +70,6 @@ class Game {
       this.grid.draw();
       const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
       if (!currentCell.checkIfWallInDirection(this.player.direction)) {
-        console.log("move");
         this.player.move();
       }
       this.process();

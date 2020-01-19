@@ -8,15 +8,15 @@ function getWallBooleanArray(str) {
 }
 
 class Grid {
-  constructor(numRows, numCols, cellSize) {
+  constructor(numRows, numCols, cellSize, doorLocation) {
     this.numRows = numRows;
     this.numCols = numCols;
     this.cells = [];
     this.cellSize = cellSize;
-    this.generateCells();
+    this.generateCells(doorLocation);
   }
 
-  generateCells() {
+  generateCells(doorLocation) {
     for (let rowNum = 0; rowNum < this.numRows; rowNum++) {
       this.cells[rowNum] = [];
       for (let colNum = 0; colNum < this.numCols; colNum++) {
@@ -27,6 +27,9 @@ class Grid {
           levelOneInfo.columns[colNum][rowNum][1],
           this.cellSize
         );
+        if (rowNum === doorLocation[0] && colNum === doorLocation[1]) {
+          this.cells[rowNum][colNum].isDoor = true;
+        }
       }
     }
   }
