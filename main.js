@@ -60,6 +60,7 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
 
 class Game {
   constructor() {
+    this.playAndLoopMusic();
     setBackground();
     this.gameOver = false;
     this.score = 0;
@@ -70,6 +71,12 @@ class Game {
     document.onkeydown = this.player.turn.bind(this.player);
     this.grid.draw();
     this.update();
+  }
+
+  playAndLoopMusic() {
+    const backgroundMusic = new Audio("./music/background.mp3");
+    backgroundMusic.play();
+    backgroundMusic.loop = true;
   }
 
   process() {
