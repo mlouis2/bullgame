@@ -52,12 +52,12 @@ class Enemy {
   }
 
   getBestMoveWithManhattan(availableMoves, playerLocation) {
-    const playerRow = playerLocation[0];
-    const playerCol = playerLocation[1];
+    const playerY = playerLocation[0];
+    const playerX = playerLocation[1];
     let bestCombo = ["", 1000];
     availableMoves.forEach(move => {
-      const [y2, x2] = this.getTranslation(move);
-      const manhattan = this.calculateManhattan(playerRow, playerCol, x2, y2);
+      const [x2, y2] = this.getTranslation(move);
+      const manhattan = this.calculateManhattan(playerX, playerY, x2, y2);
       if (manhattan < bestCombo[1]) {
         bestCombo = [move, manhattan];
       }
