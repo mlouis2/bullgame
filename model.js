@@ -19,7 +19,12 @@ function drawModel(gameStatus, score) {
   document.onkeydown = refresh;
 }
 
-function storeHighScore() {}
+function storeHighScore(score) {
+  let highScore = localStorage.getItem("highScore") || 0;
+  if (score > highScore) {
+    localStorage.setItem("highScore", score);
+  }
+}
 
 function refresh(e) {
   location.href = "./index.html";
