@@ -4,7 +4,6 @@ class Player {
     this.xCoord = xCoord;
     this.yCoord = yCoord;
     [this.xValue, this.yValue] = calculateXAndYPos(this.xCoord, this.yCoord);
-    console.log("constructing player");
   }
 
   draw() {
@@ -32,7 +31,6 @@ class Player {
   turn(e) {
     e = e || window.event;
 
-    console.log(e.keyCode);
     if (Object.values(directions).indexOf(e.keyCode) > -1) {
       this.direction = e.keyCode;
     }

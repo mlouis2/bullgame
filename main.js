@@ -39,8 +39,8 @@ class Game {
   async update() {
     this.setBackground();
     this.grid.draw();
-    this.player.draw();
     this.player.move();
+    this.player.draw();
     setTimeout(() => {
       this.update();
     }, 1000);
