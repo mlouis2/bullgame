@@ -50,12 +50,13 @@ class Game {
     this.grid.draw();
     const currentCell = this.grid.getCellAt(this.player.getPlayerLocation());
     if (!currentCell.checkIfWallInDirection(this.player.direction)) {
+      console.log("move");
       this.player.move();
     }
     this.player.draw();
-    // setTimeout(() => {
-    //   this.update();
-    // }, 1000);
+    setTimeout(() => {
+      this.update();
+    }, 1000);
   }
 }
 

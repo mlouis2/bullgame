@@ -74,6 +74,8 @@ class Cell {
   }
 
   checkIfWallInDirection(direction) {
+    console.log(this);
+    console.log("direction is " + direction);
     switch (direction) {
       case directions.UP:
         return this.topWall;
