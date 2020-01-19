@@ -34,6 +34,7 @@ function drawLine(startXPos, startYPos, endXPos, endYPos) {
   ctx.beginPath();
   ctx.moveTo(startXPos, startYPos);
   ctx.lineTo(endXPos, endYPos);
+  ctx.lineWidth = 2;
   ctx.stroke();
 }
 

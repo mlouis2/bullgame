@@ -3,6 +3,8 @@ const chinaIds = {
   classic: 1
 };
 
+const WALL_OFFSET = 1;
+
 class Cell {
   //Wall values is a boolean, china id is a string
   constructor(xCoord, yCoord, walls, chinaId, cellSize) {
@@ -26,15 +28,14 @@ class Cell {
   }
 
   draw() {
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#ffe5b4";
     ctx.fillRect(
       this.xValue - 1,
       this.yValue - 1,
       this.cellSize + 1,
       this.cellSize + 1
     );
-    ctx.strokeStyle = "#6a0dad";
-    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#505050";
     this.drawWalls();
     this.drawChina();
     if (this.isDoor) {
@@ -59,33 +60,33 @@ class Cell {
   drawWalls() {
     if (this.topWall) {
       drawLine(
-        this.xValue,
+        this.xValue - WALL_OFFSET,
         this.yValue,
-        this.xValue + this.cellSize,
+        this.xValue + this.cellSize + WALL_OFFSET,
         this.yValue
       );
     }
     if (this.leftWall) {
       drawLine(
         this.xValue,
-        this.yValue,
+        this.yValue - WALL_OFFSET,
         this.xValue,
-        this.yValue + this.cellSize
+        this.yValue + this.cellSize + WALL_OFFSET
       );
     }
     if (this.rightWall) {
       drawLine(
         this.xValue + this.cellSize,
-        this.yValue,
+        this.yValue - WALL_OFFSET,
         this.xValue + this.cellSize,
-        this.yValue + this.cellSize
+        this.yValue + this.cellSize + WALL_OFFSET
       );
     }
     if (this.bottomWall) {
       drawLine(
-        this.xValue,
+        this.xValue - WALL_OFFSET,
         this.yValue + this.cellSize,
-        this.xValue + this.cellSize,
+        this.xValue + this.cellSize + WALL_OFFSET,
         this.yValue + this.cellSize
       );
     }

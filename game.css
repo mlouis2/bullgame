@@ -1,5 +1,5 @@
 body {
-  background-color: #ffe5b4;
+  background-color: #912727;
   font-family: "Press Start 2P", cursive;
 }
 
@@ -13,4 +13,5 @@ canvas {
 
 .scoreContainer {
   display: inline-flex;
+  color: white;
 }
