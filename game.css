@@ -15,3 +15,8 @@ canvas {
   display: inline-flex;
   color: white;
 }
+
+#bonusScoreText {
+  font-size: 10px;
+  margin-left: 20px;
+}

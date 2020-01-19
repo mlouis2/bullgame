@@ -8,6 +8,7 @@ let totalScore = 0;
 
 const scoreText = document.getElementById("score");
 const score = document.getElementById("scoreText");
+const bonusScoreText = document.getElementById("bonusScoreText");
 
 const directions = {
   UP: 38,
@@ -84,9 +85,17 @@ class GameControl {
     );
   }
   gameOverCallback(gameOverStatus) {
-    //Means that player won
+    // Means that player won
     if (gameOverStatus === 1) {
       if (this.level !== NUM_LEVELS) {
+        if (this.level === 1 && this.chinaSmashed === 57) {
+          totalScore = totalScore + 10;
+          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
+        }
+        if (this.level === 2 && this.chinaSmashed === 112) {
+          totalScore = totalScore + 10;
+          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
+        }
         this.level++;
         this.game = new Game(
           this.gameOverCallback,
@@ -119,6 +128,7 @@ class Game {
     // 0 is game not over, 1 is game won, 2 is game lost
     this.gameOver = 0;
     this.numTicks = 0;
+    this.chinaSmashed = 0;
     this.doorLocation = doorLocation;
     score.style.marginLeft = canvas.offsetLeft;
     this.grid = new Grid(
@@ -144,6 +154,7 @@ class Game {
     const cell = this.grid.getCellAt(this.player.getPlayerLocation());
     if (cell.chinaId === 1) {
       cell.removeChina();
+      this.chinaSmashed++;
       totalScore++;
     }
     const doorFound =
