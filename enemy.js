@@ -38,16 +38,12 @@ class Enemy {
     switch (move) {
       case directions.UP:
         return [this.xCoord, this.yCoord - 1];
-        break;
       case directions.DOWN:
         return [this.xCoord, this.yCoord + 1];
-        break;
       case directions.LEFT:
         return [this.xCoord - 1, this.yCoord];
-        break;
       case directions.RIGHT:
         return [this.xCoord + 1, this.yCoord];
-        break;
     }
   }
 

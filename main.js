@@ -88,15 +88,7 @@ class GameControl {
     // Means that player won
     if (gameOverStatus === 1) {
       if (this.level !== NUM_LEVELS) {
-        if (this.level === 1 && this.chinaSmashed === 57) {
-          totalScore = totalScore + 10;
-          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
-        }
-        if (this.level === 2 && this.chinaSmashed === 112) {
-          totalScore = totalScore + 10;
-          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
-        }
-        if (this.level === 3 && this.chinaSmashed === 152) {
+        if (this.grid.getChinaCount() == this.chinaSmashed) {
           totalScore = totalScore + 10;
           bonusScoreText.innerHTML = "+10 bonus for all-smash!";
         }

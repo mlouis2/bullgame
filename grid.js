@@ -14,6 +14,7 @@ class Grid {
     this.cells = [];
     this.cellSize = cellSize;
     this.levelInfo = levelInfo[level - 1];
+    this.numChina = 0;
     this.generateCells(doorLocation);
   }
 
@@ -21,11 +22,15 @@ class Grid {
     for (let rowNum = 0; rowNum < this.numRows; rowNum++) {
       this.cells[rowNum] = [];
       for (let colNum = 0; colNum < this.numCols; colNum++) {
+        let chinaId = this.levelInfo.columns[colNum][rowNum][1];
+        if (chinaId === 1) {
+          this.numChina++;
+        }
         this.cells[rowNum][colNum] = new Cell(
           colNum,
           rowNum,
           getWallBooleanArray(this.levelInfo.columns[colNum][rowNum][0]),
-          this.levelInfo.columns[colNum][rowNum][1],
+          chinaId,
           this.cellSize
         );
         if (rowNum === doorLocation[0] && colNum === doorLocation[1]) {
@@ -45,5 +50,9 @@ class Grid {
 
   getCellAt(location) {
     return this.cells[location[0]][location[1]];
+  }
+
+  getChinaCount() {
+    return this.numChina;
   }
 }
