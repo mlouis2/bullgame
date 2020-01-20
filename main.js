@@ -70,6 +70,19 @@ function getRandomLocationWithinCanvas() {
   return [getRandomInt(NUM_COLS), getRandomInt(NUM_ROWS)];
 }
 
+function addBonusScoreTextIfAllSmash(level, chinaSmashed, chinaCount) {
+  if (chinaSmashed === chinaCount) {
+    totalScore = totalScore + 10;
+    bonusScoreText.innerHTML = "+10 bonus for all-smash!";
+    setTimeout(() => {
+      bonusScoreText.innerHTML = "";
+    }, 3000);
+  }
+  if (level === NUM_LEVELS) {
+    scoreText.innerHTML = totalScore;
+  }
+}
+
 class GameControl {
   constructor() {
     totalScore = 0;
@@ -84,17 +97,13 @@ class GameControl {
       80
     );
   }
+
   gameOverCallback(gameOverStatus) {
     // Means that player won
     if (gameOverStatus === 1) {
+      addBonusScoreTextIfAllSmash(this.level, this.chinaSmashed, this.grid.getChinaCount());
+      // if player was not at the last level
       if (this.level !== NUM_LEVELS) {
-        if (this.grid.getChinaCount() == this.chinaSmashed) {
-          totalScore = totalScore + 10;
-          bonusScoreText.innerHTML = "+10 bonus for all-smash!";
-          setTimeout(() => {
-            bonusScoreText.innerHTML = "";
-          }, 3000);
-        }
         this.level++;
         this.game = new Game(
           this.gameOverCallback,
