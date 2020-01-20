@@ -91,6 +91,9 @@ class GameControl {
         if (this.grid.getChinaCount() == this.chinaSmashed) {
           totalScore = totalScore + 10;
           bonusScoreText.innerHTML = "+10 bonus for all-smash!";
+          setTimeout(() => {
+            bonusScoreText.innerHTML = "";
+          }, 3000);
         }
         this.level++;
         this.game = new Game(
